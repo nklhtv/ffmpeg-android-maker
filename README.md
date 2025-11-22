@@ -74,6 +74,23 @@ Certain external libraries require additional software to be installed. Check th
 
 **Text relocations monitoring**. After an assembling is finished you can look into stats/text-relocations.txt file. This file lists all \*.so files that were built and reports if any of them has text relocations. If you don't see any mentioning of 'TEXTREL' in the file, you are good. Otherwise, you will see exact binaries that have this problem. The Github Actions' Compilability check build will automatically fail if text relocations occur.
 
+## Build
+
+Build docker image:
+
+```bash
+docker build -t ffmpeg-android-builder ./tools/docker
+```
+
+Compile ffmpeg:
+
+```bash
+docker run --rm \
+  -v .:/mnt/ffmpeg-android-maker \
+  -e FAM_ARGS="--source-tar=5.0 --enable-all-gpl --enable-all-free --target-abis=arm64-v8a,armeabi-v7a" \
+  ffmpeg-android-builder
+```
+
 ## License
 
 The ffmpeg-android-maker's source code is available under the MIT license. See the `LICENSE.txt` file for more details.
